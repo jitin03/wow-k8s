@@ -13,7 +13,7 @@ metadata:
   name: eureka-cm
 data:
   eureka_service_address: "http://eureka-0.eureka:8761/eureka"
-  hostname: "eureka-0"
+  hostname: "eureka-0.eureka"
 
 ---
 
