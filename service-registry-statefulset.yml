@@ -17,7 +17,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: eureka
-        image: eureka-slim:1.16.1
+        image: mehuljitin/service-registry:0.0.1
         imagePullPolicy: Always
         ports:
         - containerPort: 8761

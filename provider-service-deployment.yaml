@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: provider-service-app
-        image: dailycodebuffer/authservice
+        image: mehuljitin/provider-service:0.0.1
         imagePullPolicy: Always
         ports:
         - containerPort: 8092
@@ -38,7 +38,7 @@ spec:
             configMapKeyRef:
               name: mongodb-cm
               key: database
-        - name: MONGO_HOST
+        - name: MONGODB_HOST
           valueFrom:
             configMapKeyRef:
               name: mongodb-cm 
