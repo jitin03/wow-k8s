@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customer-service-app
+spec:
+  selector:
+    matchLabels:
+      app: customer-service-app
+  template:
+    metadata:
+      labels:
+        app: customer-service-app
+    spec:
+      containers:
+      - name: customer-service-app
+        image: dailycodebuffer/authservice
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8097
+        env:
+        - name: CONFIG_SERVER_URL
+          valueFrom:
+            configMapKeyRef:
+              name: config-cm
+              key: config_url
+        - name: MONGO_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mongo-secret
+              key: username
+        - name: MONGO_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mongo-secret
+              key: password
+        - name: MONGO_DB
+          valueFrom:
+            configMapKeyRef:
+              name: mongodb-cm
+              key: database
+        - name: MONGO_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: mongodb-cm 
+              key: database
+        - name: EUREKA_SERVER_ADDRESS
+          valueFrom:
+            configMapKeyRef:
+              name: eureka-cm
+              key: eureka_service_address
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: customer-service-svc
+spec:
+  selector:
+    app: customer-service-app
+  ports:
+  - port: 80
+    targetPort: 8097
