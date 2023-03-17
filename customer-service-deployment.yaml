@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: customer-service-app
-        image: mehuljitin/customer-service:0.0.1
+        image: mehuljitin/customer-service:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8097

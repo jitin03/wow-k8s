@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: category-service-app
-        image: mehuljitin/category-service:0.0.1
+        image: mehuljitin/category-service:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8094
