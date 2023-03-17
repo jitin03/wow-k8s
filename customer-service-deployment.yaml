@@ -42,7 +42,7 @@ spec:
           valueFrom:
             configMapKeyRef:
               name: mongodb-cm 
-              key: database
+              key: hostname
         - name: EUREKA_SERVER_ADDRESS
           valueFrom:
             configMapKeyRef:
