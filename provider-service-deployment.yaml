@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: provider-service-app
-        image: mehuljitin/provider-service:0.0.1
+        image: mehuljitin/provider-service:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8092
