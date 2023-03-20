@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: review-service-app
+spec:
+  selector:
+    matchLabels:
+      app: review-service-app
+  template:
+    metadata:
+      labels:
+        app: review-service-app
+    spec:
+      containers:
+        - name: review-service-app
+          image: mehuljitin/review-service:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8098
+          env:
+            - name: CONFIG_SERVER_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: config-cm
+                  key: config_url
+            - name: MONGO_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: username
+            - name: MONGO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: password
+            - name: MONGO_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: mongodb-cm
+                  key: database
+            - name: MONGODB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: mongodb-cm
+                  key: hostname
+            - name: EUREKA_SERVER_ADDRESS
+              valueFrom:
+                configMapKeyRef:
+                  name: eureka-cm
+                  key: eureka_service_address
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: review-service-svc
+spec:
+  selector:
+    app: review-service-app
+  ports:
+    - port: 80
+      targetPort: 8098
